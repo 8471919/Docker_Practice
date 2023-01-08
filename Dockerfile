@@ -4,12 +4,15 @@ FROM node:16-alpine
 ENV NODE_ENV=production
 WORKDIR /app
 
-COPY ["server/package.json", "server/package-lock.json*", "./"]
-RUN npm install
-
 COPY . .
 
-CMD ["npm", "start"]
+WORKDIR /app/server
+
+RUN npm install
+
+RUN npm run build
+
+CMD ["npm", "run", "start:prod"]
 
 
 
